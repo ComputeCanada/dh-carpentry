@@ -19,6 +19,11 @@ Version control goes well beyond avoiding bizarre naming conventions though and 
 ### Sharing
 While sharing information more easily was part of the original purposes for developing Git the ease with which this can be done via GitHub has made it the case that many users do very little with version control at all and use Git/GitHub solely for it's ability to quickly produce web sites for the sharing of information.  GitHub facilitates the Open science Model by giving researchers a publishing platform that provides access to data, papers, presentations, and the like, all through a fairly easy to use web interface.
 
+## The problem with Git
+![https://imgs.xkcd.com/comics/git.png](https://imgs.xkcd.com/comics/git.png)
+
+From [https://xkcd.com/1597/](https://xkcd.com/1597/) by Randal Munroe
+
 ## Learning Objectives
 We're going to make sharing information via GitHub the primary objective of this portion of the workshop and look at version control only in light of sharing.  By doing this we will be placing the emphasis on using GitHub rather than on using Git.  Make no mistake though Git is central to GitHub and must be understood to make effective use of it.  There will be commandline work in this section but it will be treated as secondary to the use of the Git desktop app.  Emphasis will be placed on generating an understanding of the core concepts that power Git and the terms used to refer to these concepts.
 
@@ -165,7 +170,7 @@ Sooner or later one of these assumptions is likely going to be false and when th
 
 1. The commandline tool can be downloaded for either Mac or Windows at: [https://desktop.github.com/](https://desktop.github.com/)
 2. Installation is straightforward.  You will be asked for your GitHub account name and password and then you will be presented with the core interface.
-3. Initially this will be empty (unless you already have Git repositories on your computer) so we will need to add your hello-world project.  Do this by clicking the **+** in the top left corner of the screen, clicking **clone** and then selecting "hello-world".  
+3. Initially this will be empty (unless you already have Git repositories on your computer) so we will need to add your hello-world project.  Do this by clicking the **+** in the top left corner of the screen, clicking **clone** and then selecting "hello-world". (A clone is an exact copy of a repository that you own.) 
 4. It will ask you where to put this directory.  Put it on the destop so that it can be easily found.
 
 Go through the parts of the window with them and show how they could revert to an earlier work by clicking at a point on the tree and choosing the **Revert** option from the gear/settings menu.
@@ -202,7 +207,27 @@ https://help.github.com/desktop/guides/contributing/reverting-a-commit/
 This is as easy as dragging a folder onto the app and then syncronizing it.
 
 ## Markdown
-https://guides.github.com/features/mastering-markdown/ 
+Use an online editor to make the rendering of markdown realtime.
+
+* [https://stackedit.io/](https://stackedit.io/)
+* [http://dillinger.io/](http://dillinger.io/)
+
+Core things to show:
+
+* \#s to make headings
+* \*s to make italics and bold
+* \*s and \1s to make lists
+* \`s and """s and indents to make code blocks
+* \>s to make quotes
+* \[]() to make links
+* \!\[]() to add images
+* \ to escape special characters
+
+Have them make some changes to their README.md and commit them.
+
+Point them to some online guide, perhaps
+[https://guides.github.com/features/mastering-markdown/](https://guides.github.com/features/mastering-markdown/)
+ 
 
 ## Forking
 Must be done from either GitHub or from the commandline.
@@ -217,7 +242,11 @@ https://guides.github.com/features/issues/
 Have participants share their hello-world repositories on the Etherpad and partner with each other to push an issue or two.
 
 ## Web pages
-https://guides.github.com/features/pages
+Not sure I really want to go here since it opens up the possibility of having to get into HTML syntax.  Perhaps just stick with the markdown based README.md page for the time being...
+
+Could show off [Jentery's page](http://jentery.github.io/inke2016) which is a nice slide show/presentation just to illustrate what is possible.
+
+[https://guides.github.com/features/pages](https://guides.github.com/features/pages)
 
 ## Citations
 https://guides.github.com/activities/citable-code
