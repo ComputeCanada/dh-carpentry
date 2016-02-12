@@ -227,31 +227,43 @@ Have them make some changes to their README.md and commit them.
 
 Point them to some online guide, perhaps
 [https://guides.github.com/features/mastering-markdown/](https://guides.github.com/features/mastering-markdown/)
- 
 
-## Forking
-Must be done from either GitHub or from the commandline.
 
-https://guides.github.com/activities/forking
+## Other benefits 
 
-## Collaborating
+GitHub provides other benefits over the ones looked at so far in detail. These are beyond the scope of this introduction but you can get a sense for what is possible by looking at the GitHub guides found at: [https://guides.github.com](https://guides.github.com).  The most relevant to the work of participants are highlighted here. 
+
+### Collaborating
 Giving people access to controlling repositories.  Doesn't seem to be a GitHub tutorial on this.
 
-## Issues
-https://guides.github.com/features/issues/
+### Issues
+[https://guides.github.com/features/issues/](https://guides.github.com/features/issues/)
 Have participants share their hello-world repositories on the Etherpad and partner with each other to push an issue or two.
 
-## Web pages
+### Forking
+[https://guides.github.com/activities/forking](https://guides.github.com/activities/forking)
+Must be done from either GitHub or from the commandline.
+
+### Web pages
+[https://guides.github.com/features/pages](https://guides.github.com/features/pages)
 Not sure I really want to go here since it opens up the possibility of having to get into HTML syntax.  Perhaps just stick with the markdown based README.md page for the time being...
 
 Could show off [Jentery's page](http://jentery.github.io/inke2016) which is a nice slide show/presentation just to illustrate what is possible.
 
-[https://guides.github.com/features/pages](https://guides.github.com/features/pages)
-
-## Citations
-https://guides.github.com/activities/citable-code
+### Citations
+[https://guides.github.com/activities/citable-code](https://guides.github.com/activities/citable-code)
 
 ## Commandline control
-Can draw from Software Carpentry.  Also help available at https://help.github.com/ , particularly Bootcamp, Setup, and Using Git.
+Draw from Software Carpentry.  Also help available at https://help.github.com/ , particularly Bootcamp, Setup, and Using Git.
+
+They need to be able to:
+
+1. create a repository and turn on Git
+2. Make commits
+3. Add files
+4. Push to GitHub
+5. Pull from GitHub
+6. See integration with desktop
+7. Turn Git off on a directory
 
 https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
