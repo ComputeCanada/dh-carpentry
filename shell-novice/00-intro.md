@@ -58,7 +58,7 @@ A shell is a program like any other.
 What's special about it is that its job is to run other programs
 rather than to do calculations itself.
 The most popular Unix shell is Bash,
-the Bourne Again SHell
+the **B**ourne **A**gain **SH** ell
 (so-called because it's derived from a shell written by Stephen Bourne --- this
 is what passes for wit among programmers).
 Bash is the default shell on most modern implementations of Unix
@@ -76,48 +76,27 @@ In addition, the command line is often the easiest way to interact with remote m
 Familiarity with the shell is near essential to run a variety of specialised tools and resources including high-performance computing systems. As clusters and cloud computing systems become more popular for scientific data crunching,
 being able to interact with them is becoming a necessary skill. We can build on the command-line skills covered here to tackle a wide range of scientific questions and computational challenges.
 
-## Nelle's Pipeline: Starting Point
+<!--Using "Landry" because of it's gender neutrality-->
+## Landry's Pipeline: Starting Point
 
-Nelle Nemo, a marine biologist,
-has just returned from a six-month survey of the
-[North Pacific Gyre](http://en.wikipedia.org/wiki/North_Pacific_Gyre),
-where she has been sampling gelatinous marine life in the
-[Great Pacific Garbage Patch](http://en.wikipedia.org/wiki/Great_Pacific_Garbage_Patch).
-She has 300 samples in all, and now needs to:
 
-1.  Run each sample through an assay machine
-    that will measure the relative abundance of 300 different proteins.
-    The machine's output for a single sample is
-    a file with one line for each protein.
-2.  Calculate statistics for each of the proteins separately
-    using a program her supervisor wrote called `goostat`.
-3.  Compare the statistics for each protein
-    with corresponding statistics for each other protein
-    using a program one of the other graduate students wrote called `goodiff`.
-4.  Write up results.
-    Her supervisor would really like her to do this by the end of the month
-    so that her paper can appear in an upcoming special issue of *Aquatic Goo Letters*.
+<!--Point of the fictitious example is to provide a reasonable frame for the rest of the lesson.  To ensure that students are able to relate to the example it needs to appeal to a range of disciplines.-->
 
-It takes about half an hour for the assay machine to process each sample.
-The good news is that
-it only takes two minutes to set each one up.
-Since her lab has eight assay machines that she can use in parallel,
-this step will "only" take about two weeks.
+Landry has joined an new research group and needs to build a corpus of text files for future analysis (likely either with [Voyant](http://voyant-tools.org/) or [Mallet]().  These files come from [Project Gutenberg](http://www.gutenberg.org/) and need the extra content at the beginning and the end of the document cut out.  There are 100 books in all and each needs to be:
 
-The bad news is that if she has to run `goostat` and `goodiff` by hand,
-she'll have to enter filenames and click "OK" 45,150 times
-(300 runs of `goostat`, plus 300x299/2 runs of `goodiff`).
-At 30 seconds each,
-that will take more than two weeks.
-Not only would she miss her paper deadline,
-the chances of her typing all of those commands right are practically zero.
+1. Downloaded.
+2. Have the extra content stripped.
+3. Have the new copy of the file added to a directory that will represent the corpus that will eventually be processed using other tools.
+
+It takes about 3 minutes to find, download, prepare, and save each file.  The good news is that this will "only" take about 300 minutes (5 hours).
+
+The bad news is that that this must all be done by hand,
+meaning that the mouse will need to be clicked thousands of times leaving lots of room for errors.  Not to mention the tedium.  The group is talking about "Big Data" anaylsis by getting access to content from other archives and the volume of "by hand" pre-processing this would involve scares Landry.
 
 The next few lessons will explore what she should do instead.
 More specifically,
-they explain how she can use a command shell
-to automate the repetitive steps in her processing pipeline
-so that her computer can work 24 hours a day while she writes her paper.
+they explain how Landry can use a command shell
+to automate the repetitive steps in this processing pipeline.
 As a bonus,
-once she has put a processing pipeline together,
-she will be able to use it again whenever she collects more data.
-
+once Landry has put a processing pipeline together,
+she will be avialable for use by the research group whenever they need more data.
