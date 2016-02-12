@@ -14,7 +14,7 @@ The importance of version control can begin to be understood with the following 
 ![](http://swcarpentry.github.io/git-novice/fig/phd101212s.gif)
 Rather than keep multiple slight variations of a document through its entire life cycle version control allows for *one* copy of a document to be kept, the most recent, while all the changes made to get it to its current state are held in the background by a program specially designed to track this information.  This saves the need for bizzare naming conventions and holding multiple copies of the same document.
 
-Version control goes well beyond avoiding bizarre naming conventions though and really comes into its own when there are multiple authors working on a document in parallel.  Rather than just accept what any other contributor has written, version control allows those responsible for the document to choose exactly what gets kept and what gets changed.  It even allows for the roll back of content to previous versions when it is determined that those versions are preferred.
+Version control goes well beyond avoiding bizarre naming conventions though and really comes into its own when there are multiple authors working on a document in parallel.  Rather than just accept what any other contributor has written, version control allows those responsible for the document to choose exactly what gets kept and what gets changed.  It even allows for the roll back of content to previous versions when it is determined that those versions are preferred.  Combined with a central repository like GitHub it also provides a backup for your data and the benefits of enterprise class redundant systems.
 
 ### Sharing
 While sharing information more easily was part of the original purposes for developing Git the ease with which this can be done via GitHub has made it the case that many users do very little with version control at all and use Git/GitHub solely for it's ability to quickly produce web sites for the sharing of information.  GitHub facilitates the Open science Model by giving researchers a publishing platform that provides access to data, papers, presentations, and the like, all through a fairly easy to use web interface.
@@ -254,6 +254,11 @@ Could show off [Jentery's page](http://jentery.github.io/inke2016) which is a ni
 [https://guides.github.com/activities/citable-code](https://guides.github.com/activities/citable-code)
 
 ## Commandline control
+
+### setting up Git
+
+Git is a program just like the programs invoked by `ls`, `mv`, and the other commands we looked at during the Commandline portion of this class.  
+
 Draw from Software Carpentry.  Also help available at https://help.github.com/ , particularly Bootcamp, Setup, and Using Git.
 
 They need to be able to:
@@ -265,5 +270,13 @@ They need to be able to:
 5. Pull from GitHub
 6. See integration with desktop
 7. Turn Git off on a directory
+8. Creating a repository
+Recording changes to files: add, commit, ...
+Viewing changes: status, diff, ...
+Ignoring files
+Working on the web: clone, pull, push, ...
+Resolving conflicts
+Open licenses
+Where to host work, and why
 
 https://training.github.com/kit/downloads/github-git-cheat-sheet.pdf
