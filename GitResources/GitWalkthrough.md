@@ -968,16 +968,16 @@ Let's start by sharing the changes we've made to our current project with the wo
 Log in to GitHub,
 then click on the icon in the top right corner to create a new repository called `planets`:
 
-![Creating a Repository on GitHub (Step 1)](fig/github-create-repo-01.png)
+![Creating a Repository on GitHub (Step 1)](https://github.com/swcarpentry/git-novice/blob/gh-pages/fig/github-create-repo-01.png)
 
 Name your repository "planets" and then click "Create Repository":
 
-![Creating a Repository on GitHub (Step 2)](fig/github-create-repo-02.png)
+![Creating a Repository on GitHub (Step 2)](https://github.com/swcarpentry/git-novice/blob/gh-pages/fig/github-create-repo-02.png)
 
 As soon as the repository is created,
 GitHub displays a page with a URL and some information on how to configure your local repository:
 
-![Creating a Repository on GitHub (Step 3)](fig/github-create-repo-03.png)
+![Creating a Repository on GitHub (Step 3)](https://github.com/swcarpentry/git-novice/blob/gh-pages/fig/github-create-repo-03.png)
 
 This effectively does the following on GitHub's servers:
 
