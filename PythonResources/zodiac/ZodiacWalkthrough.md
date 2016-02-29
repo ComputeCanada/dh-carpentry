@@ -214,12 +214,10 @@ Loading the counts data can and should be done first.  When doing this it will b
 	import os.path
 	import json
 
+	counts = {}
 	if os.path.exists('.zodiacCounts.json'):
-    	#counts = {}
 	    with open('.zodiacCounts.json','r') as infile:
     	    counts = json.load(infile)
-	else:
-    	counts = {}
 
 Note that *counts* is a dictionary.  JSON makes nice work of these.  Also note the use of the `with` construct which is a safer way of opening files since it automatically closes on exit and (some?) crashes.
 
