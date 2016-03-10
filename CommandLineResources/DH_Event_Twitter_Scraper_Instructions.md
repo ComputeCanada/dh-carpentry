@@ -22,12 +22,12 @@ The tool we will be installing is called **twarc** and is maintained on GitHub a
 6. Set the security group rules to allow ssh in the Access & Security panel. 
 7. Log in via ssh and do the appropriate updates to the OS from the VM command line:
 
-```
-ssh -i <<path to your private key here>> ubuntu@<<Your IP Address here>>
-sudo apt-get update
-sudo apt-get -y upgrade
-sudo reboot
-```
+	```
+	$ ssh -i <<path to your private key here>> ubuntu@<<Your IP Address here>>
+	$ sudo apt-get update
+	$ sudo apt-get -y upgrade
+	$ sudo reboot
+	```
 
 ## Part 2: Install twarc
 twarc is the tool that will be used to collect tweets from the Twitter API.
@@ -35,14 +35,14 @@ twarc is the tool that will be used to collect tweets from the Twitter API.
 1. Log back in to the VM (the reboot done after the update would have closed the connection) and Install pip (The Python package installer) from the VM command line: 
 	
 	```
-	ssh -i <<path to your private key here>> ubuntu@<<Your IP Address here>>
-	sudo apt-get install python-pip
+	$ ssh -i <<path to your private key here>> ubuntu@<<Your IP Address here>>
+	$ sudo apt-get install python-pip
 	```
 
 2. Install twarc:
 
 	```
-	sudo pip install twarc
+	$ sudo pip install twarc
 	```
 
 3. Register the app with Twitter: [http://apps.twitter.com](http://apps.twitter.com)
@@ -57,13 +57,13 @@ twarc is the tool that will be used to collect tweets from the Twitter API.
 	>NOTE: Doing step 6 will produce an error.  The tool is complaining because it doesn't have enough information to actually run a scrape.  This is fine because all we care about it is having the tool generate a ```.twarc``` file in the home directory and save the keys to that file in the correct format.
 
 	```
-	twarc.py
+	$ twarc.py
 	```
 
 7. Test the service: 
 
 	```
-	twarc.py --search ponies
+	$ twarc.py --search ponies
 	```
 	Which will return something like:
 	
@@ -79,30 +79,36 @@ This will set the system to run twarc at regular intervals, stripping duplicate 
 1. Create a new directory and move into it:
 
 	```
-	mkdir DH_Scrape
-	cd DH_Scrape
+	$ mkdir DH_Scrape
+	$ cd DH_Scrape
 	```
 
 2. Create a directory to hold the tweets: 
 
 	```
-	mkdir tweets
+	$ mkdir tweets
 	```
 
 3. Create a directory to hold the specific collection of tweets:
 
 	```
-	mkdir tweets/DH2016
+	$ mkdir tweets/DH2016
 	```
 
 4. Install Git and get ArchiveTools: 
 
 	```
-	sudo apt-get git
-	git clone https://github.com/recrm/ArchiveTools
+	$ sudo apt-get git
+	$ git clone https://github.com/recrm/ArchiveTools
+	```
+`
+5. Copy `json-extractor.py` from the `ArchiveTools` folder into the `tweets` folder:
+
+	```
+	$ cp ArchiveTools/json-extractor.py tweets/
 	```
 
-5. Create a script named **DH_Scrape.sh** with the following content:
+6. Create a script named **DH_Scrape.sh** with the following content:
 
 	```
 	#! /usr/bin/bash
@@ -121,16 +127,36 @@ This will set the system to run twarc at regular intervals, stripping duplicate 
 
 	python3 tweets/json-extractor.py -path tweets/DH2016 -compress -output 	$myFilename -id id_str text id created_at id_str
 	```
+7. Test this script and do any necessary corrections due to errors that arise.  From the directory the script is in run:
 
-6. Create a cron job to run this script twice a week.
+	```
+	$ bash DH_Scrape.sh
+	```
+
+
+8. Create a cron job to run this script twice a week.
 	* Open the cron editor (If this is the first time you have run the tool it will ask you which editor to use. If you are unsure then `nano` is a generally friendly option): 
 		
 		```
-		crontab -e
+		$ crontab -e
 		```
 	* Add the following lines to the bottom of the editor:
   
 	```
 	#This line will set the DH Twitter scraper to run at midnight every Sunday and Wednesday
 	0 0 * * 0,3 bash /home/ubuntu/DH_scrape/DH_Scrape.sh
+	```
+9. Transfer the tweet data from your cloud machine to your home machine in whatever directory you are currently working in:
+
+	```
+	$ exit
+	
+	logout
+	Connection to 206.167.180.229 closed.
+	
+	$ scp -r -i <<path to your private key here>> ubuntu@<<Your IP Address here>>:~/DH_Scrape/tweets/DH2016 . 
+	
+	archive.log                                   100% 4788     4.7KB/s   00:00    
+	tweets-0001.json                              100%  396KB 396.4KB/s   00:00    
+	20160308163459-DH2016.json                    100%  396KB 396.4KB/s   00:01 
 	```
