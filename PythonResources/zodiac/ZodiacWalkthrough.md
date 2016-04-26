@@ -193,7 +193,7 @@ We very well may not make it this far.  If that's the case then we'll at least w
 ## 9. Tracking Responses
 **NEW.**  This is the first step to producing a simple chart for comparing responses that updates every time a new answer is provided.  The response data is saved and loaded as a hidden file.  As an additional bonus **import** statements are introduced.
 
-Start by adding new comments for blocks of code that needed to be added.  These should include:
+Start by adding comments to capture new blocks of code that needed to be added.  These should include:
 
 	# LOAD COUNTS DATA
 	# check if the counts of zodiac characters (read-only) file exists

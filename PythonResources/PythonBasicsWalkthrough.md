@@ -366,4 +366,5 @@ With this the students see both the assignment operator ("=") and a function ("p
 * Modify the program (or write a new one) that asks a user for a number and then writes ‘Hello World!’ that many times to a filename provided by the user
 * Take the previous program and have it drop one letter from the end of ‘Hello World!’ for each line it writes
 * Take a word and count all the letters of that word and report them
-* Write a program that asks for words and tells the user how many vowels are in the word until the user types ‘stop'
+* Write a program that asks for words and tells the user how many vowels are in the word until the user types ‘stop'  
+

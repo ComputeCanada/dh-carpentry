@@ -275,7 +275,7 @@ It is important to note that you will often be prevented from deleting crucially
 
 >**Question:** What would happen if the command issued was **rm -rf /**?
 
->**Answer:** *Everything* goes since you are telling the computer to *recursively* remove everything in the root folder.
+>**Answer:** *Everything* goes since you are telling the computer to *recursively* remove everything in the root folder.  To see some "real-world" consequences of this see [http://serverfault.com/questions/587102/monday-morning-mistake-sudo-rm-rf-no-preserve-root](http://serverfault.com/questions/587102/monday-morning-mistake-sudo-rm-rf-no-preserve-root).
 
 ### Renaming Files
 
