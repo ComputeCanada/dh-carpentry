@@ -1,17 +1,143 @@
-# Analyzing Twitter Data
+<!--
+Break out into four sections, each 1/4 day:
+1. Syntax overview. Same style as command line section.  Keep this at the basics, fast, and light. Draw from original Python walkthrough.
+2. Basic analysis.  JSON. Composition of tweets.  NLTK. Pre-processor. Matplotlib intro.
+3. Advanced work.  Sentiment analysis with textblob.  Installing exterior packages with pip / conda.  Maybe MAYBE working with graphs (Might be a problem loading these).
+4. Drinking directly from the stream.  How to get the data from Twitter.
+5. Extra / Backup.  If they eat all the above content or it fails then we can move to the Zodiac Tool.
+-->
 
-This lesson is meant to mirror and replace for Humanities scholars---and hopefully some Social Sciences scholars as well--the Python 01-numpy lesson featured on software-carpentry.org.  It is not that numpy or the related techniques shown in that lesson has no place in the Humanities or Social Sciences, to the contrary there is much of value to be learned in that lesson, but rather that the methods underpinning that lesson are mostly foreign to these academic disciplines and so stand in the way of learning Python.  By featuring qualitative textual data from a Twitter feed rather than quantitative numeric data from a biological study it is hoped that neither the contents nor the methods will be quite so foreign to those within the Humanities and Social Sciences.  Perhaps this lesson will be of value to those with more quantitative backgrounds as well.
+This walkthrough is meant to mirror and replace for Humanities scholars---and hopefully some Social Sciences scholars as well--the Python lessons featured on software-carpentry.org.  It is not that numpy or the related techniques shown in the posted lessons have no place in the Humanities or Social Sciences, to the contrary there is much of value to be learned in that lesson, but rather that the methods underpinning that lesson are mostly foreign to these academic disciplines and so stand in the way of learning programming via Python.  By featuring qualitative textual data from a Twitter feed rather than quantitative numeric data from a biological study it is hoped that neither the contents nor the methods will be quite so foreign to those within the Humanities and Social Sciences.  Perhaps this lesson will be of value to those with more quantitative backgrounds as well.
 
-> Learning Objectives
-> * Understand the value of comments
-> * Plan a program
-> * Open a file
-> * Loop over the contents of a file, line by line
-> * Assign values to variables.
-> * Explain what a library is, and what libraries are used for.
-> * Load a Python library and use the things it contains.
-> * Select individual values and subsections from data.
-> * Display simple graphs..
+# 1. Python / Jupyter Basics
+<!--
+We'll build a word counter focusing on topics in the following order:
+1. Functions.  print("hello word!")
+2. variables vs. strings
+3. Operators.
+5. Methods.
+6. Lists and containers.
+7. Control Structures.
+
+The word counter can / will be used in the second part where we look at twitter data and plot the most frequent words.
+-->
+
+In this first section we'll quickly cover some basic syntax, control structures, and objects in Python so that when it comes to looking at the basics of actual analysis we are in a better position to see the big picture.
+
+##Boxes and Markdown
+
+Let's begin by typing a brief description of what we are about to do into a _markdown_ box at the top of a new Python 3 workbook in Jupyter notebooks.  Enter something like the following in a markdown box.
+
+	Learning the basics of Python.  When done I will have created my own word counter.
+
+Note that while markdown is raw text on input an interpreter will convert various character sequences into formatting commands that will change the final output.  Change the original line to say:
+
+	**Learning the basics of Python.**  When done I will have created *my own* word counter. 
+
+It will continue to look just as you typed it until you either `hold shift and press enter` or press the `play button` to process the block.  Do either now and your text will render as:
+
+**Learning the basics of Python.**  When done I will have created *my own* word counter.
+
+Note that you can double click on the block to edit the text and then process the block again.
+
+We won't do any more here but you are encouraged to play and experiment on your own later.
+
+There in no single standard to appeal to for markdown formatting although there is general agreement on some core behaviours.  When working within Jupyter you should refer to the [Markdown section of the Jupyter docs](http://jupyter-notebook.readthedocs.org/en/latest/examples/Notebook/Working%20With%20Markdown%20Cells.html).  You may also find it useful to refer to the [GitHub Markdown Guide](https://guides.github.com/features/mastering-markdown/) since that is another popular place where Markdown is used.  If you are looking for a template document this guide was written in markdown and should be available wherever you got the PDF version as a .md file.
+
+Note that there are other types of cells/blocks as well.  Make sure that the right cell type is turned on for the content or you won't get the results you are expecting.
+
+##Functions
+
+Let's start working with Python.  Type the following into a code block.
+
+	print("hello world")
+	
+Notice that the text is coloured.  This is the Python interpreter running in the background telling you what various components of the statement are.
+
+See what the line does by running the cell.
+
+	hello world!
+
+**Congratulations, you have just written and run your first program!** 
+
+Let's look at what happened here. "print" is what is known as a function, meaning that it is a sort of list of commands or processes that the computer is to perform.  Functions are always invoked by writing out the name of the function followed by a set of parentheses. What is inside the parenthesis are the inputs into the function, what it needs or expects to carry out the instructions inside.  There can be many inputs, just one (as is the case here), or no inputs (such functions are known as "empty functions").  Here our input is the text string *hello word!*.  We know that it is a string of text characters because we have wrapped it in quotations.
+
+> What happens when the quotations are:
+
+> a. removed?
+
+> b. swapped with single quotes?
+
+> c. used inconsistently (e.g. no closing quote, open with a single but closed with a double, etc.)?
+
+> d. doubles are used inside singles (e.g. " 'hello wold!' ") or vice versa?
+
+> e. the quote type used inside is the same as is used outside (e.g. " "hello wold!" ")
+
+
+[Go over errors and show how to escape characters with `\`. If they have done the commandline part of this already then they should be reminded that they have seen this before in reference to spaces in filenames.]
+
+Note that print() is quite happy to take more than one input:
+
+	print("hello","world","!")
+
+or no input
+
+	print()
+	
+**IMPORTANT:** A major change from Python 2 to Python 3 is the shift from print just being a statement:
+
+	print "hello world!"
+
+to print being implemented as a function (for consistency):
+
+	print("hello world!")
+
+It is a small change that may not seem to matter but it really does because it renders the vast majority of Python 2 programs incompatible with Python 3.
+
+print() is a built-in function, it comes pre-installed and activated with every version of Python.  There are other functions that are built in but which we must load, others that we will have to install separately and then load, and still others that we'll create ourselves.
+
+For the moment though we'll leave these further details of functions behind and look at another core concept, variables.
+
+##Variables
+Variables provide us named containers to hold our objects making it easier to pass the contents around within the program without actually having to provide the original object.  For a parallel in language consider how convenient it is to use the phrase "my parents" to refer to people who are my parents rather than carrying them around with me everywhere and having to point to them each time I refer to them.  Let's not get carried away with the analogy.
+
+In the case our hello world example imagine how annoying and counterproductive it would be if what we were working with was not "hello world!" but the text of Moby Dick!
+
+Let's create at use some variables.  We'll start by typing the following:
+
+	
+
+# 2. Basic Analysis
+<!--
+Here we'll expand on the concepts laid down in part and incorporate the word counter created.  We'll focus on:
+
+1. Planning a program & understanding the value of comments
+2. Opening a file
+3. Loading data from a file
+4. Importing libraries
+5. Working with matplotlib
+
+-->
+
+#3. Advanced Analysis
+<!--
+This is advanced not because it uses really fancy techniques but because it requires the ability to extend Python with non-standard libraries.
+
+-->
+
+#4. Drinking from the Stream
+<!--
+
+1. Create a twitter account.
+2. Register a project/app at https://apps.twitter.com/
+3. Connect to stream in segments
+4. Watch stream in real-time
+5. Save data
+6. Use this data with previously created tools.
+
+This consol looks useful for learning/experimenting with the API: https://dev.twitter.com/rest/tools/console
+-->
 
 [Before we begin participants will need to download a file like `20160308163459-DH2016.json` from the course GitHub repository] 
 
