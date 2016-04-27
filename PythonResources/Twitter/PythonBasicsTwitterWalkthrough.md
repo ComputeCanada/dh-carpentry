@@ -62,6 +62,8 @@ There are two types of comments in Python, single line and multi line.  Single l
 	# Take some input
 	
 	# Process the input word by word, counting each word
+	
+	# Produce the chart
 
 Multi line comments are openend and closed with triple double quotes: """.  We don't have a use for them now but we likely will before the workshop is over.
 
@@ -274,8 +276,7 @@ We will use a dictionary that uses the word/letter as the key and returns a coun
 What we need now is a way to count the occurrences of a word/letter.  To do this we need to be able to recognize when we have seen an item before or not and then change the behaviour accordingly.  To do this we need our second control structure: conditionals.
 
 ##Control Structures Part 2: Conditionals
-
-* If
+The core conditional control structure in Python is the if.  It is pretty straightforward to use, as follows:
 
       x = 5
 
@@ -283,60 +284,69 @@ What we need now is a way to count the occurrences of a word/letter.  To do this
 
       if x < y:
 
-          print ‘x is less than y’
+          print ("x is less than y")
 
-* Else
+Of course this is not the only case, y can also be less than x.  We can add this as follows:
 
+      x = 5
+      y = 4
+
+      if x < y:
+          print ("x is less than y")
       else:
+          print ("y is less than x")
 
-          print ‘x is not less than y’
+Still, we have not caught all the cases
 
-* Elif
+	x = 5
+	y = 4
 
-      elif x==y:
+	if x < y:
+		print ("x is less than y")
+	elif x > y:
+		print ("y is less than x")
+	elif x == y:
+		print("x is equal to y")
+	else:
+		print("Something weird is happening")
 
-          print ‘x is equal to y'
+While it seems unnecessary to add the last line because all the cases are covered it is good practice to explicitly trap all the cases you expect and then use else to grab any that you don't.
 
-* conjunction with a conditional
+We can also combine conditionals with logical operators
 
-      if 0 < x and x < 10:
+	x = 5
+	if 0 < x and x < 10:
+		print("x is a positive single digit number")
 
-          print ‘x is a positive single digit number’
+We can now go back and modify our program by adding a conditional that will allow us to initialize an entry  for an item to 1 when we see it for the first time or to do something else if we've seen it before:
 
-* In
-      
-      if ‘a’ in fruit:
+	# Take some input
+	inputString = "this is some sample text"
+	
+	# Process the input word by word, counting each word
+	dicthist={}
+	for word in inputString:
+	    if word not in dicthist:
+	        dicthist[word] = 1
+    	else:
+        	dicthist[word] = 2
 
-          print fruit
-      
-* Function with a while loop with a conditional
+	print(dicthist)
 
-      def find(word, letter)
-
-          index = 0
-
-          while index < len(fruit)
-
-              if word[index] == letter:
-
-                  return index
-
-              return -1
-
-          print find(fruit, ‘a’)
-
+Of course, we need some way to account for items that occur more than twice.  For this we need to talk about operators.
 
 ##Operators
-* Objects are the nouns of the language.  You do things to them with other things.  Strings, integers, variables, lists, etc. are all types of objects.
-* Operators are the things you use to do things to objects.  When you do something to an object with an operator we refer to that object as an operand.  Things like + - ^ * ** / = == < > <= >= are all operators.
-* Punctuation are the characters (including spaces) that keep the syntax together.  These include spaces, : , () [] {} 
-* Expressions arise when we link objects together with operators and the right punctuation.  
-* Statements are things that the computer will do.  Expressions are kinds of statements but think of them as separate things.  Expressions have values, statements work with values.
+Objects are the nouns of the language.  You do things to them with other things.  Strings, integers, variables, lists, etc. are all types of objects. Operators are the things you use to do things to objects.  When you do something to an object with an operator we refer to that object as an operand.  Things like + - ^ * ** / = == < > <= >= are all operators.
 
-* Try all the standard operators + * / -
+You've already seen punctuation, these are the characters (including spaces) that keep the syntax together.  These include spaces, : , () [] {} 
 
-* What does 1 // 2 produce?
-* 0. Why? Integer division.
+Expressions arise when we link objects together with operators and the right punctuation.  
+
+Statements are things that the computer will do.  Expressions are kinds of statements but think of them as separate things.  Expressions have values, statements work with values.
+
+> Create some variables and assign numbers to them. Try all the standard operators + * / - on them.
+
+> What does 1 // 2 produce?  Why? Integer division.
 
 **IMPORTANT:**  In Python 2 / is *integer division by default*.  Can overcome this by adding decimal placeholders to at least one component of the formula.
 
@@ -351,9 +361,8 @@ What we need now is a way to count the occurrences of a word/letter.  To do this
       7 % 2
       
 * returns 1 since 2 goes into 7 three times with one left over.
-* Assign an integer and a decimal to variables
 
-* What operators can we use with lists?  Try some out!
+> What operators can we use with lists?  Try some out!
 
       list1 + list2
 
@@ -361,10 +370,48 @@ What we need now is a way to count the occurrences of a word/letter.  To do this
 
       list1 + string1 
 
-* *list1 + string1* fails.  Need to recast string1 as a list.  [string1] 
+Note that *list1 + string1* fails.  Need to recast string1 as a member of a list:
 
+	list1 + [string1]
+	
+With operators we can modify our program to continually add each new instance of an item that it discovers:
+
+	# Take some input
+	inputString = "this is some sample text"
+	
+	# Process the input word by word, counting each word
+	dicthist={}
+	for word in inputString:
+	    if word not in dicthist:
+	        dicthist[word] = 1
+    	else:
+        	dicthist[word] = dicthist[word] + 1
+
+	print(dicthist)
+
+Alternatively, we can use the increment operator to make this cleaner:
+
+	# Take some input
+	inputString = "this is some sample text"
+	
+	# Process the input word by word, counting each word
+	dicthist={}
+	for word in inputString:
+	    if word not in dicthist:
+	        dicthist[word] = 1
+    	else:
+        	dicthist[word] += 1
+
+	print(dicthist)
+
+It works!  For letters anyway.  Let's see how to get it working for words.
 
 ##Methods
+As we have seen, the program as currently written treats our input as a string, which is a sort of list that has an ordered set of characters as its members.  What we need to do is turn it into a list.  We could write a program that would read through the string adding each character to a new string until finding the end ofa word, adding that word to a list, and then continuing the process until everything is done and *then* processing this new list rather than the initial string.  Ugh.  That's a lot of work.  Fortunately someone else has already done this for us.  Even more fortunately they have done it for lots of similar actions and there is an easy way to invoke them, methods.
+
+Methods are special functions that are associated with certain data types.  They are invoked by typing the name of the variable holding that data type and then immediately following that with a dot and then the name of the method.
+
+Let's try some methods out on some lists and some strings.
 
 * list methods. append, expand, and sort.  Note that list methods are all void.  They modify the original list and return None.
 
@@ -381,6 +428,24 @@ What we need now is a way to count the occurrences of a word/letter.  To do this
 * Adding
 
 	list1.append(list2)
+
+[
+Once append is on the table it is possible to demonstrate the difference between passing by reference (append) and passing by value (+).  Note as well that appending a list to a list will make the appended list a *member of* the first list while using + will make all its members members.
+
+	list1 = ["hello","world","!"]
+	list2 = [5,4.0,"wow"]
+	list3 = list1 + list2
+	list4 = list1
+	list4.append(list2)
+	print(list3)
+	print(list4)
+	list1[0]="HELLO"
+	print(list3)
+	print(list4)
+
+]
+
+**Need to know the available methods?  Tab/Shift-Tab completion.**
 
 * How will we capitalize the *"wow"* in list1?
 
@@ -417,6 +482,88 @@ What we need now is a way to count the occurrences of a word/letter.  To do this
       ‘trois’ in dict1Val
       
 * Or go straight for the throat with *‘trois’* in *dict1.values()*
+
+What we want for our program is the split method:
+
+	# Take some input
+	inputString = "this is some sample text"
+
+	# Process the input word by word, counting each word
+	dicthist={}
+	for word in inputString.split():
+    	if word not in dicthist:
+        	dicthist[word] = 1
+	    else:
+    	    dicthist[word] += 1
+
+	print(dicthist)
+
+Now that we have our data in a useful format we can look at plotting it as a histogram.
+
+##Charts
+The core library used for plotting in Python is matplotlib.  It has website that is full of examples, some of which might be exactly what you want: [matplotlib.org](http://matplotlib.org).  Ultimately it is a very powerful package that can quickly become quite complex to use (We could easily spend a day just on it).  Extra help is available from the [External Resources Page](http://matplotlib.org/resources/index.html).  We'll glance at the basics, drop in a solution, and then move on (You'll be seeing it again).
+
+Let's start by playing with the following example:
+
+	import matplotlib.pyplot as plt
+
+	#special ipython/jupyter command that keeps the output in this window rather than opening another one.
+	%matplotlib inline 
+
+	plt.figure()
+	plt.plot([1, 2, 3, 4], [10, 20, 25, 30], color='lightblue', linewidth=3)
+	plt.scatter([0.3, 3.8, 1.2, 2.5], [11, 25, 9, 26], color='darkgreen', marker='^')
+	plt.bar([1,2,3,4],[12,3,25,18], width=0.2, align='center')
+	plt.xlim(0.5, 4.5)
+	plt.ylim(0,50)
+	plt.show()
+
+> See what happens as you change the values around, comment lines out, and change the options.
+
+Note three important things:
+1. The very first line of this block *imports* a new library.  The library is matplotlib.  Actually, the whole library isn't loaded, just a portion of it called "pyplot".  This portion is also renamed "plt".
+2. A special ipython/jupyter only command is issued that stops the plot from appearing in its own window.  The percentage sign at the beginning indicates that it is this type of command.
+
+> How could you print out the line, bar, and scatter plot separately but from the same cell?
+
+It is time for us to add a bar chart to our program.  We can copy up a lot of content from the example.  We'll add one feature that will allow us to include labels in the plot, making the whole program look like this.
+
+	# Take some input
+	inputString = "this is some sample text"
+
+	# Process the input word by word, counting each word
+	dicthist={}
+	for word in inputString.split():
+    if word not in dicthist:
+        dicthist[word] = 1
+    else:
+        dicthist[word] += 1
+
+	print(dicthist)
+
+	import matplotlib.pyplot as plt
+	%matplotlib inline
+	
+	plt.figure()
+	plt.bar(range(len(dicthist.values())),dicthist.values(), width=0.2, align='center')
+	plt.xticks(range(len(dicthist)), list(dicthist.keys()),rotation='vertical')
+
+	plt.show()
+
+##User Input
+
+At times it can be really useful to take user input.  We can do this with the input() function, changing the inputString line to:
+
+	inputString = input("Please enter some sample text")
+
+##Tweaking
+Figure getting a little small?  Consider changing its dimensions by swapping `plt.figure(figsize=(15, 6))` for `plt.figure()`.
+
+Too much information on the chart?  Set it to only print the top 10 most common items:
+
+
+
+And that should be enough of the basics.  You've seen all the primary pieces of python at this point *and* make a working program
 
 # 2. Basic Analysis
 <!--
@@ -656,6 +803,30 @@ Installing collected packages: textblob
 Successfully installed textblob-0.11.1
 
 ```
+
+[\*args and **kwargs in Python functions explained](http://www.saltycrane.com/blog/2008/01/how-to-use-args-and-kwargs-in-python/)
+
+* Function with a while loop with a conditional
+
+      def find(word, letter)
+
+          index = 0
+
+          while index < len(fruit)
+
+              if word[index] == letter:
+
+                  return index
+
+              return -1
+
+          print find(fruit, ‘a’)
+
+* In
+      
+      if ‘a’ in fruit:
+
+          print fruit
 
 ##Writing Data
 Not sure that there will be data to output here.  If there is then just use `with`.  When we 
