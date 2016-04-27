@@ -13,22 +13,25 @@ This walkthrough is meant to mirror and replace for Humanities scholars---and ho
 <!--
 We'll build a word counter focusing on topics in the following order:
 1. Functions.  print("hello word!")
-2. variables vs. strings
-3. Operators.
-5. Methods.
-6. Lists and containers.
-7. Control Structures.
+2. variables.
+3. Control Structures.
+4. Operators.
+5. Lists and containers, including strings.
+6. Methods.
+7. Input user and loading files
+8. Graph.
+9. Our word counter.
 
 The word counter can / will be used in the second part where we look at twitter data and plot the most frequent words.
 -->
 
-In this first section we'll quickly cover some basic syntax, control structures, and objects in Python so that when it comes to looking at the basics of actual analysis we are in a better position to see the big picture.
+In this first section we'll quickly cover some basic syntax, control structures, objects, and output in Python so that when it comes to looking at the basics of actual analysis we are in a better position to see the big picture.
 
 ##Boxes and Markdown
 
 Let's begin by typing a brief description of what we are about to do into a _markdown_ box at the top of a new Python 3 workbook in Jupyter notebooks.  Enter something like the following in a markdown box.
 
-	Learning the basics of Python.  When done I will have created my own word counter.
+	Learning the basics of Python.  When done I will have created my own word histogram.
 
 Note that while markdown is raw text on input an interpreter will convert various character sequences into formatting commands that will change the final output.  Change the original line to say:
 
@@ -46,9 +49,27 @@ There in no single standard to appeal to for markdown formatting although there 
 
 Note that there are other types of cells/blocks as well.  Make sure that the right cell type is turned on for the content or you won't get the results you are expecting.
 
+##Comments
+
+In the cell immediately below the markdown description we just made is where we'll build our histogram tool.  Make sure that the type of the cell is code.
+
+Before we write any actual code we should plan out our program.  We'll do this with comments.  Comments are portions of the code that are not interpreted by the language when the program is run.  Typically comments are helpful descriptions of surrounding code for humans to read.  Sometimes they are used during testing to turn on and off lines used in debugging.
+
+There are two types of comments in Python, single line and multi line.  Single line comments start with a #, the hash or pound symbol found above the numeral 3 on most keyboards.  Let's enter the following single line comments to roughly describe what we are going to be doing:
+
+	# This program will count the words in a string and graph the 10 most common words
+	
+	# Take some input
+	
+	# Process the input word by word, counting each word
+
+Multi line comments are openend and closed with triple double quotes: """.  We don't have a use for them now but we likely will before the workshop is over.
+
+Let's create or move to a new cell below this one where we can learn and practice how to use the pieces of the python language that we will need to create our word histogram.
+
 ##Functions
 
-Let's start working with Python.  Type the following into a code block.
+Type the following into the new code block.
 
 	print("hello world")
 	
@@ -104,9 +125,298 @@ Variables provide us named containers to hold our objects making it easier to pa
 
 In the case our hello world example imagine how annoying and counterproductive it would be if what we were working with was not "hello world!" but the text of Moby Dick!
 
-Let's create at use some variables.  We'll start by typing the following:
+Let's create and use some variables.  We'll start by typing the following in a new block:
 
+	firstVar = "hello world!"
 	
+What we have done here is create a variable called "myVar" and assign to it the string "hello world!".  Three important points to note:
+
+1. **The variable name is short and meaningful within this context.**  It is the first variable that we have created in python.  Avoid the temptation to call your variables in other programs things like "var1" or "x" because doing so will make it much harder to debug the program.
+2. **The equal sign is the assignment operator and *not* the equality operator.** When invoked it assigns the name on the left to the object on the right.
+3. **Running this code block will result in no output.**  As with the command line "silence is golden" so we'll only see output when we explicitly ask for it (there are a few exceptions in Jupyter, such as when we have only a variable name on a line and its content gets printed out) or deserve it.  Hence the importance of print().
+
+> How do we view the content of our variable?
+
+We can assign many different types of data to a variable, even changing the type after the variable is created (this is not true with other "strict typing" languages).  Let's assign it a numerical value:
+
+	firstVar = 5
+
+We are going to need a variable that holds a string to run our word counting tool so let's do create that now in our master block that we will use throughout.
+
+	# Take some input
+	inputString = "this is some sample text"
+
+##Control Structures Part 1: Loops
+
+Now that we have some content to use as a draft we need to process it.  To do this we'll need to make use of both loops and conditionals.  We'll start with a loops.
+
+Loops are used when we want to do the same thing over and over again, typically with changes to at least one of the inputs.  This allows us to code more efficiently.  In Python there are two types of loops, *while loops* and *for loops*.  While loops run until a condition is met.  For loops run until an entire list is consumed.  The exception to both these descriptions is that both loops can be ended using a `break` statement within the loop.
+
+Let's look at an example of each:
+
+* While
+
+      fruit = 'banana'
+      index = 0
+      while index < len(fruit):
+          letter = fruit[index]
+          print(letter)
+          index = index + 1
+          
+* For
+      fruit = 'banana'
+      for letter in fruit:
+          print(letter)
+
+**[Walk through each of these line by line with the attendees.]**
+
+As you can see, for loops are usually the more compact and efficient choice when the entire list is to be processed.  Do not forget the while loop though, it is the correct choice when you don't know where to stop processing a list.
+
+> Note that they only thing special about the variable names used is that they are meaningful for humans.  Prove this to yourself by changing each of 'fruit', 'index', and 'banana' to something totally different within each code block.  Make sure to do this *consistently*.
+
+If we want to count *all* the words is a given body of text then we should use a for loop.  We should also test to make sure that we are reading the input properly so let's print the result of each pass through the loop:
+
+	# Process the input word by word, counting each word
+	for word in inputString:
+		print(word)
+
+> What happens when we run this code?  Why?
+
+The problem is that Python is seeing our input as a single string of characters rather than a list of words (Note though that this is further proof that the variable names only matter to us).  We could fix this now but let's finish the control logic of the program first, thinking of this as *character* histogram for the moment.
+
+##Lists and containers, including strings
+###Lists
+As me move through the loop we are going to need to collect the items we come across---whether they are characters or words or anything else---and count them.  To do this we need to use containers and lists.  Let's have a quick primer on lists and containers. 
+
+* Ordered collection of objects.  strings are a special type of list where each element is a character and the list type has its own methods.
+
+      list1 = ["hello","world","!"]
+
+* indexing and slicing
+
+> If [x] is the indexing command then what will list1[1] return?  Why?  
+
+> What about list1[1:2]?
+
+> What will list1[0]="Hello" do?
+
+* Lists can hold almost any type of object and can be heterogeneous.
+
+      list2=[5,4.0,"wow"]
+
+###Strings
+
+Strings are *ordered sequences of characters* and as sequences we can index and slice strings just like lists.  We saw this happening with the loop examples and this is what is happening with our little program right now.
+	
+	string1 = "Hello World!"
+
+> Why do we get "e" as the return?  Zero based counting.
+
+      string1[0:5]
+
+> What values will just give us "world!"? string1[6:12] and string1[6:]
+
+> What about [0:0] and [6:3] and negative values?
+
+Strings are immutable.  We modify them only by overwriting them.
+
+###Dictionaries
+
+The container type that we will use for our little program though is a dictionary.  Dictionaries use key-value pairs for indexing rather than locations in a list.
+
+      dict1 = {'one’:’un’,’two’:’deux’,’three’:’trois’}
+
+> Display the contents of the dictionary
+
+* note how the order has (likely) changed!
+* Accessing elements
+
+      dict1[two]
+            
+* *dict1[two]* fails, no variable named "two"
+
+      dict1[‘two’]
+
+      dict1[‘four’]
+      
+* *dict1[‘four’]* fails, no index named "four"
+
+* Checking members
+
+      ‘four’ in dict1
+
+      ‘trois’ in dict1
+
+* Adding/modifying  members
+
+      outFile = open(‘output.txt’, ‘r’)
+
+      for line in outFile:
+
+          print linedict1[four] =  ‘quatre’
+
+* Checking for inverse members.  Can’t do that yet (Dictionaries don’t work that way by default).  For that we need functions, loops, and conditionals.
+
+We will use a dictionary that uses the word/letter as the key and returns a count of that letter.  For the moment let's just make sure that we can load the dictionary and worry about actually counting later:
+
+	# Take some input
+	inputString = "this is some sample text"
+	
+	# Process the input word by word, counting each word
+	histdict = {}	
+	for word in inputString:
+	    histdict[word] = 1
+
+	print(histdict)
+	
+	> Note that both histdict and the print statement are outside the loop.  What will happen if we move either or both of them inside the loop?  Try it.
+
+What we need now is a way to count the occurrences of a word/letter.  To do this we need to be able to recognize when we have seen an item before or not and then change the behaviour accordingly.  To do this we need our second control structure: conditionals.
+
+##Control Structures Part 2: Conditionals
+
+* If
+
+      x = 5
+
+      y = 4
+
+      if x < y:
+
+          print ‘x is less than y’
+
+* Else
+
+      else:
+
+          print ‘x is not less than y’
+
+* Elif
+
+      elif x==y:
+
+          print ‘x is equal to y'
+
+* conjunction with a conditional
+
+      if 0 < x and x < 10:
+
+          print ‘x is a positive single digit number’
+
+* In
+      
+      if ‘a’ in fruit:
+
+          print fruit
+      
+* Function with a while loop with a conditional
+
+      def find(word, letter)
+
+          index = 0
+
+          while index < len(fruit)
+
+              if word[index] == letter:
+
+                  return index
+
+              return -1
+
+          print find(fruit, ‘a’)
+
+
+##Operators
+* Objects are the nouns of the language.  You do things to them with other things.  Strings, integers, variables, lists, etc. are all types of objects.
+* Operators are the things you use to do things to objects.  When you do something to an object with an operator we refer to that object as an operand.  Things like + - ^ * ** / = == < > <= >= are all operators.
+* Punctuation are the characters (including spaces) that keep the syntax together.  These include spaces, : , () [] {} 
+* Expressions arise when we link objects together with operators and the right punctuation.  
+* Statements are things that the computer will do.  Expressions are kinds of statements but think of them as separate things.  Expressions have values, statements work with values.
+
+* Try all the standard operators + * / -
+
+* What does 1 // 2 produce?
+* 0. Why? Integer division.
+
+**IMPORTANT:**  In Python 2 / is *integer division by default*.  Can overcome this by adding decimal placeholders to at least one component of the formula.
+
+> What does the ** operator do?
+* ** is the exponent.  Often ^ elsewhere.
+
+      2 ** 3
+
+> What does the % operator do?
+* % is the modulo operator.  It returns the remainder when the first number is divided by the second.
+
+      7 % 2
+      
+* returns 1 since 2 goes into 7 three times with one left over.
+* Assign an integer and a decimal to variables
+
+* What operators can we use with lists?  Try some out!
+
+      list1 + list2
+
+      list1 * 3
+
+      list1 + string1 
+
+* *list1 + string1* fails.  Need to recast string1 as a list.  [string1] 
+
+
+##Methods
+
+* list methods. append, expand, and sort.  Note that list methods are all void.  They modify the original list and return None.
+
+      list1.sort()
+
+      list1.reverse
+
+      list1.index("Hello")      
+      
+      list[1].capitalize()
+      
+      list1[1]=list[1].capitalize()
+      
+* Adding
+
+	list1.append(list2)
+
+* How will we capitalize the *"wow"* in list1?
+
+      list1[3][2].capitalize()
+
+      list1.insert(2,"two")
+
+
+* deleting elements
+
+      list1.pop(2)
+
+      list1.remove("wow")
+
+* *list1.remove("wow")*fails.  Need to access the list in the list.
+* Only removes the first instance
+
+* string methods: len, upper, lower, replace, etc.
+
+      len(string1)
+      
+      string1.swapcase()
+      
+      string1.swapcase()
+
+* Why didn’t it go back to lowercase the second time?  We’re not modifying the string.
+
+      string1.replace("!", "!!!")
+
+* *‘trois’ in dict1* fails because it is a value, not a key
+
+      dict1Val = dict1.values()
+
+      ‘trois’ in dict1Val
+      
+* Or go straight for the throat with *‘trois’* in *dict1.values()*
 
 # 2. Basic Analysis
 <!--
