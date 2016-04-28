@@ -1,0 +1,1 @@
+test of changing files on git with dropping.
